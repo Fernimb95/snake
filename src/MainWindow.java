@@ -11,35 +11,35 @@ import javax.swing.JPanel;
 
 public class MainWindow extends JFrame {
 
-    JPanel cards;
-    String cardDisplayed;
-    CardLayout cl;
+    private JPanel cards;
+    private String cardDisplayed;
+    private CardLayout cl;
 
-    WelcomeScreen s1;
-    PlayerSelectScreen s2;
-    CustomizeBoardScreen s3;
-    BoardScreen s4;
+    private WelcomeScreen s1;
+    private PlayerSelectScreen s2;
+    private CustomizeBoardScreen s3;
+    private BoardScreen s4;
 
     public void showCard(String cardName) {
-        cl.show(cards, cardName);
+        getCl().show(getCards(), cardName);
     }
 
     public void resetAll() {
-        s1 = new WelcomeScreen(this);
-        s2 = new PlayerSelectScreen(this);
-        s3 = new CustomizeBoardScreen(this);
-        s4 = new BoardScreen(this);
+        setS1(new WelcomeScreen(this));
+        setS2(new PlayerSelectScreen(this));
+        setS3(new CustomizeBoardScreen(this));
+        setS4(new BoardScreen(this));
 
-        cards.add(s1, "One");
-        cards.add(s2, "Two");
-        cards.add(s3, "Three");
-        cards.add(s4, "Four");
+        getCards().add(getS1(), "One");
+        getCards().add(getS2(), "Two");
+        getCards().add(getS3(), "Three");
+        getCards().add(getS4(), "Four");
     }
 
     //maintaining board info
     public void setBoard() {
-        s4 = new BoardScreen(this);
-        cards.add(s4, "Four");
+        setS4(new BoardScreen(this));
+        getCards().add(getS4(), "Four");
     }
 
     public MainWindow() {
@@ -93,6 +93,104 @@ public class MainWindow extends JFrame {
 
         cl.show(cards, "One");
         showCard("One");
+    }
+
+    /**
+     * @return the cards
+     */
+    public JPanel getCards() {
+        return cards;
+    }
+
+    /**
+     * @param cards the cards to set
+     */
+    public void setCards(JPanel cards) {
+        this.cards = cards;
+    }
+
+    /**
+     * @return the cardDisplayed
+     */
+    public String getCardDisplayed() {
+        return cardDisplayed;
+    }
+
+    /**
+     * @param cardDisplayed the cardDisplayed to set
+     */
+    public void setCardDisplayed(String cardDisplayed) {
+        this.cardDisplayed = cardDisplayed;
+    }
+
+    /**
+     * @return the cl
+     */
+    public CardLayout getCl() {
+        return cl;
+    }
+
+    /**
+     * @param cl the cl to set
+     */
+    public void setCl(CardLayout cl) {
+        this.cl = cl;
+    }
+
+    /**
+     * @return the s1
+     */
+    public WelcomeScreen getS1() {
+        return s1;
+    }
+
+    /**
+     * @param s1 the s1 to set
+     */
+    public void setS1(WelcomeScreen s1) {
+        this.s1 = s1;
+    }
+
+    /**
+     * @return the s2
+     */
+    public PlayerSelectScreen getS2() {
+        return s2;
+    }
+
+    /**
+     * @param s2 the s2 to set
+     */
+    public void setS2(PlayerSelectScreen s2) {
+        this.s2 = s2;
+    }
+
+    /**
+     * @return the s3
+     */
+    public CustomizeBoardScreen getS3() {
+        return s3;
+    }
+
+    /**
+     * @param s3 the s3 to set
+     */
+    public void setS3(CustomizeBoardScreen s3) {
+        this.s3 = s3;
+    }
+
+    /**
+     * @return the s4
+     */
+    public BoardScreen getS4() {
+        return s4;
+    }
+
+    /**
+     * @param s4 the s4 to set
+     */
+    public void setS4(BoardScreen s4) {
+        this.s4 = s4;
     }
 
 }

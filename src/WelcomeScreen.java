@@ -12,27 +12,27 @@ import javax.swing.JPanel;
 
 public class WelcomeScreen extends JPanel {
 
-    JLabel title;
-    JButton go;
-    JButton quit;
+    private JLabel title;
+    private JButton go;
+    private JButton quit;
 
-    MainWindow mw;
+    private MainWindow mw;
 
     public void setTitle(String t) {
-        title.setText(t);
+        getTitle().setText(t);
     }
 
     public void quitButtonActionListener() {
-        if (JOptionPane.showConfirmDialog(this, ARE_YOU_SURE) == JOptionPane.OK_OPTION) {
+        if (JOptionPane.showConfirmDialog(this, getARE_YOU_SURE()) == JOptionPane.OK_OPTION) {
             System.exit(0);
         }
     }
-    private static final String ARE_YOU_SURE = "Are you sure?";
+    private static String ARE_YOU_SURE = "Are you sure?";
 
     public void goButtonActionListener() {
-        mw.showCard(TWO);
+        getMw().showCard(getTWO());
     }
-    private static final String TWO = "Two";
+    private static String TWO = "Two";
 
     public WelcomeScreen(MainWindow mw) {
         this.mw = mw;
@@ -42,8 +42,8 @@ public class WelcomeScreen extends JPanel {
         add(title);
 
         //add formatting here
-        go = new JButton(NEW__GAME);
-        quit = new JButton(QUIT);
+        go = new JButton(getNEW__GAME());
+        quit = new JButton(getQUIT());
 
         go.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent event) {
@@ -60,7 +60,119 @@ public class WelcomeScreen extends JPanel {
         add(go);
         add(quit);
     }
-    private static final String QUIT = "Quit";
-    private static final String NEW__GAME = "New Game";
+    private static String QUIT = "Quit";
+    private static String NEW__GAME = "New Game";
+
+    /**
+     * @return the title
+     */
+    public JLabel getTitle() {
+        return title;
+    }
+
+    /**
+     * @param title the title to set
+     */
+    public void setTitle(JLabel title) {
+        this.title = title;
+    }
+
+    /**
+     * @return the go
+     */
+    public JButton getGo() {
+        return go;
+    }
+
+    /**
+     * @param go the go to set
+     */
+    public void setGo(JButton go) {
+        this.go = go;
+    }
+
+    /**
+     * @return the quit
+     */
+    public JButton getQuit() {
+        return quit;
+    }
+
+    /**
+     * @param quit the quit to set
+     */
+    public void setQuit(JButton quit) {
+        this.quit = quit;
+    }
+
+    /**
+     * @return the mw
+     */
+    public MainWindow getMw() {
+        return mw;
+    }
+
+    /**
+     * @param mw the mw to set
+     */
+    public void setMw(MainWindow mw) {
+        this.mw = mw;
+    }
+
+    /**
+     * @return the ARE_YOU_SURE
+     */
+    public static String getARE_YOU_SURE() {
+        return ARE_YOU_SURE;
+    }
+
+    /**
+     * @param aARE_YOU_SURE the ARE_YOU_SURE to set
+     */
+    public static void setARE_YOU_SURE(String aARE_YOU_SURE) {
+        ARE_YOU_SURE = aARE_YOU_SURE;
+    }
+
+    /**
+     * @return the TWO
+     */
+    public static String getTWO() {
+        return TWO;
+    }
+
+    /**
+     * @param aTWO the TWO to set
+     */
+    public static void setTWO(String aTWO) {
+        TWO = aTWO;
+    }
+
+    /**
+     * @return the QUIT
+     */
+    public static String getQUIT() {
+        return QUIT;
+    }
+
+    /**
+     * @param aQUIT the QUIT to set
+     */
+    public static void setQUIT(String aQUIT) {
+        QUIT = aQUIT;
+    }
+
+    /**
+     * @return the NEW__GAME
+     */
+    public static String getNEW__GAME() {
+        return NEW__GAME;
+    }
+
+    /**
+     * @param aNEW__GAME the NEW__GAME to set
+     */
+    public static void setNEW__GAME(String aNEW__GAME) {
+        NEW__GAME = aNEW__GAME;
+    }
 
 }

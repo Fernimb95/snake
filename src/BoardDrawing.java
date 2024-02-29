@@ -10,22 +10,33 @@ import javax.swing.JPanel;
 //note: board shape and window aesthetics to be set
 //note: unification of colors not done
 
+/**
+ * 
+ * @author ferna
+ */
+
 
 public class BoardDrawing extends JPanel{
 
 	/**
 	 * 
 	 */
-	int b = 0;
-	int row = 8;
-	int col = 8;
-	ArrayList<Rectangle> cells;
+	private int b = 0;
+	private int row = 8;
+	private int col = 8;
+	private ArrayList<Rectangle> cells;
 	//int player;
-	int[] cellnos;
+	private int[] cellnos;
 	
-	BoardScreen bs;
+	private BoardScreen bs;
 	//ArrayList<Portal> portals;
 	//ArrayList<Player> players;
+        /**
+         * 
+         * @param row
+         * @param col
+         * @param bs 
+         */
 	
 	public BoardDrawing(int row, int col,BoardScreen bs){
 		this.bs = bs;
@@ -57,14 +68,17 @@ public class BoardDrawing extends JPanel{
 	    }
 	    
 	    int noPorts = 8;
-	    bs.portals = new ArrayList<Portal>(noPorts);
+	    bs.setPortals(new ArrayList<Portal>(noPorts));
 	    for(int i = 0; i < noPorts;i++){
 	    	Portal temp = new Portal(row*col);
-	    	bs.portals.add(temp);
+	    	bs.getPortals().add(temp);
 	    }
 	
 	}
-	
+	/**
+         * 
+         * @param g 
+         */
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		Graphics2D g2d = (Graphics2D) g;//.create();
@@ -85,34 +99,34 @@ public class BoardDrawing extends JPanel{
 		int width = getWidth();
 		int height = getHeight();
 		
-		int cellWidth = width / col;
-		int cellHeight = height / row;
+		int cellWidth = width / getCol();
+		int cellHeight = height / getRow();
 		
-		int xOffset = (width - (col * cellWidth)) / 2;
-        int yOffset = (height - (row * cellHeight)) / 2;
+		int xOffset = (width - (getCol() * cellWidth)) / 2;
+        int yOffset = (height - (getRow() * cellHeight)) / 2;
 
 		
-		if(cells.isEmpty()){
-		for(int i=0;i< row;i++){
-			for(int j = 0;j<col;j++){
+		if(getCells().isEmpty()){
+		for(int i=0;i< getRow();i++){
+			for(int j = 0;j<getCol();j++){
 				Rectangle latest = new Rectangle(
 						 xOffset + (j * cellWidth),
                          yOffset + (i * cellHeight),
                          cellWidth,
                          cellHeight);
-				cells.add(latest); 
+				getCells().add(latest); 
 			}
 		}
 		}
 	
 
 		g2d.setColor(Color.white);
-		for(Rectangle cell : cells){
+		for(Rectangle cell : getCells()){
 			g2d.fill(cell);
 		}
 		
 		g2d.setColor(Color.BLUE);
-		for(Rectangle cell : cells){
+		for(Rectangle cell : getCells()){
 			g2d.draw(cell);
 		}
 		
@@ -123,21 +137,21 @@ public class BoardDrawing extends JPanel{
 		
 		g2d.setColor(Color.BLUE);
 		int i=0;                                // i is our visible numbering 
-		for(Rectangle cell : cells){
+		for(Rectangle cell : getCells()){
 			
-			String message = "" + cellnos[i];
+			String message = "" + getCellnos()[i];
 		    g2d.drawString(message,(int)cell.getCenterX(),(int)cell.getCenterY());
 			//g2d.setColor(Color.red);
 			
 		    //draw player position
-		    for(int pl = 0;pl < bs.maxPlayers;pl++)
-			if(bs.players.get(pl).getPosition() == cellnos[i]){                         				
+		    for(int pl = 0;pl < getBs().getMaxPlayers();pl++)
+			if(getBs().getPlayers().get(pl).getPosition() == getCellnos()[i]){                         				
 				ChangeColorPlayer(g2d, pl, cell, cellWidth, cellHeight);
 			}
 		    
-            if(cellnos[i] == row*col-1){
-            	for(int pl = 0;pl < bs.maxPlayers;pl++)
-        			if(bs.players.get(pl).getPosition() >= cellnos[i]){                         //only one player considered here
+            if(getCellnos()[i] == getRow()*getCol()-1){
+            	for(int pl = 0;pl < getBs().getMaxPlayers();pl++)
+        			if(getBs().getPlayers().get(pl).getPosition() >= getCellnos()[i]){                         //only one player considered here
         				
         				ChangeColorPlayer(g2d, pl, cell, cellWidth, cellHeight);
                         //change to player position
@@ -148,7 +162,7 @@ public class BoardDrawing extends JPanel{
 		}
 		
 		//Drawing snakes and ladders
-		for(Portal port:bs.portals){
+		for(Portal port:getBs().getPortals()){
 			if(port.returnNature() == -1)
 				g2d.setColor(Color.red);
 			else 
@@ -156,28 +170,35 @@ public class BoardDrawing extends JPanel{
 			
 			int ind;
 			int s = port.returnStart(); 
-			for(ind=0;ind<row*col;ind++){
-				if(cellnos[ind] == s)
+			for(ind=0;ind<getRow()*getCol();ind++){
+				if(getCellnos()[ind] == s)
 					break;
 			}
 			
 			int j;
 			int e = port.returnEnd(); 
-			for(j=0;j<row*col;j++){
-				if(cellnos[j] == e)
+			for(j=0;j<getRow()*getCol();j++){
+				if(getCellnos()[j] == e)
 					break;
 			}
 			
-			g2d.drawLine((int)cells.get(ind).getCenterX(),(int) cells.get(ind).getCenterY(),(int) cells.get(j).getCenterX(),(int)cells.get(j).getCenterY());
+			g2d.drawLine((int)getCells().get(ind).getCenterX(),(int) getCells().get(ind).getCenterY(),(int) getCells().get(j).getCenterX(),(int)getCells().get(j).getCenterY());
 			
 		}
 		
 	}
-
+/**
+ * 
+ * @param g2d
+ * @param pl
+ * @param cell
+ * @param cellWidth
+ * @param cellHeight 
+ */
     private void ChangeColorPlayer(Graphics2D g2d, int pl, Rectangle cell, int cellWidth, int cellHeight) {
         //only one player considered here
         
-        g2d.setColor(bs.players.get(pl).getPlayerColor());        //change to player color
+        g2d.setColor(getBs().getPlayers().get(pl).getPlayerColor());        //change to player color
         g2d.fillRect(cell.getLocation().x + pl*cellWidth/4, cell.getLocation().y, cellWidth/4, cellHeight/4);//change to player position
         g2d.setColor(Color.blue);
     }
@@ -189,11 +210,16 @@ public class BoardDrawing extends JPanel{
 		}
 	}
 	*/
+    /**
+     * 
+     * @param pnos
+     * @return 
+     */
 	public String ensurePlayerPosition(int pnos){
 		String message = "";
-		for(Portal port :bs.portals){
-			if(bs.players.get(pnos).getPosition() == port.returnStart()){
-				bs.players.get(pnos).setPosition(port.returnEnd());
+		for(Portal port :getBs().getPortals()){
+			if(getBs().getPlayers().get(pnos).getPosition() == port.returnStart()){
+                            getBs().getPlayers().get(pnos).setPosition(port.returnEnd());
 				if(port.returnNature() == 1)
 					message += "You are up through ladder at position " + port.returnStart();
 				else if(port.returnNature() == -1)
@@ -209,10 +235,98 @@ public class BoardDrawing extends JPanel{
 		player = a;
 	}
 	*/
-	
+	/**
+         * 
+         * @param a
+         * @param pnos 
+         */
 	public void setPlayer(int a, int pnos){
-		bs.players.get(pnos).incPosition(a);
+		getBs().getPlayers().get(pnos).incPosition(a);
 	}
+
+    /**
+     * @return the b
+     */
+    public int getB() {
+        return b;
+    }
+
+    /**
+     * @param b the b to set
+     */
+    public void setB(int b) {
+        this.b = b;
+    }
+
+    /**
+     * @return the row
+     */
+    public int getRow() {
+        return row;
+    }
+
+    /**
+     * @param row the row to set
+     */
+    public void setRow(int row) {
+        this.row = row;
+    }
+
+    /**
+     * @return the col
+     */
+    public int getCol() {
+        return col;
+    }
+
+    /**
+     * @param col the col to set
+     */
+    public void setCol(int col) {
+        this.col = col;
+    }
+
+    /**
+     * @return the cells
+     */
+    public ArrayList<Rectangle> getCells() {
+        return cells;
+    }
+
+    /**
+     * @param cells the cells to set
+     */
+    public void setCells(ArrayList<Rectangle> cells) {
+        this.cells = cells;
+    }
+
+    /**
+     * @return the cellnos
+     */
+    public int[] getCellnos() {
+        return cellnos;
+    }
+
+    /**
+     * @param cellnos the cellnos to set
+     */
+    public void setCellnos(int[] cellnos) {
+        this.cellnos = cellnos;
+    }
+
+    /**
+     * @return the bs
+     */
+    public BoardScreen getBs() {
+        return bs;
+    }
+
+    /**
+     * @param bs the bs to set
+     */
+    public void setBs(BoardScreen bs) {
+        this.bs = bs;
+    }
 	
 	
 }

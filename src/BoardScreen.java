@@ -16,25 +16,25 @@ public class BoardScreen extends JPanel {
     /**
      *
      */
-    int player = 0;
-    BoardDrawing bd;
-    JPanel stats;
-    JLabel dieResults;
-    JLabel whichPlayer;
-    JLabel extraInfo;
-    int maxPlayers = 1;
-    int currPlayer = 0;
-    ArrayList<Portal> portals;
-    ArrayList<Player> players;
-    int x;
-    int y;
-    JLabel success;
-    JButton roll;
+    private int player = 0;
+    private BoardDrawing bd;
+    private JPanel stats;
+    private JLabel dieResults;
+    private JLabel whichPlayer;
+    private JLabel extraInfo;
+    private int maxPlayers = 1;
+    private int currPlayer = 0;
+    private ArrayList<Portal> portals;
+    private ArrayList<Player> players;
+    private int x;
+    private int y;
+    private JLabel success;
+    private JButton roll;
 
-    MainWindow mw;
+    private MainWindow mw;
 
-    JButton go;
-    JButton quit;
+    private JButton go;
+    private JButton quit;
 
     public void quitButtonActionListener() {
         if (JOptionPane.showConfirmDialog(this, "Are you sure?") == JOptionPane.OK_OPTION) {
@@ -43,9 +43,9 @@ public class BoardScreen extends JPanel {
     }
 
     public void goButtonActionListener() {
-        mw.showCard("Two");
-        //mw.setBoard();
-        mw.resetAll();
+        getMw().showCard("Two");
+ 
+        getMw().resetAll();
     }
 
     public void setMaxPlayers(int m) {
@@ -53,25 +53,25 @@ public class BoardScreen extends JPanel {
     }
 
     public int returnMaxPlayers() {
-        return maxPlayers;
+        return getMaxPlayers();
     }
 
     public void setUpPlayers() {
-        players = new ArrayList<Player>();
+        setPlayers(new ArrayList<Player>());
         for (int i = 0; i < returnMaxPlayers(); i++) {
-            players.add(new Player(i));
+            getPlayers().add(new Player(i));
         }
         //get and add player(s) names
 
         //manual color entry - automate later
         if (0 < returnMaxPlayers()) {
-            players.get(0).setPlayerColor(Color.green);
+            getPlayers().get(0).setPlayerColor(Color.green);
         }
         if (1 < returnMaxPlayers()) {
-            players.get(1).setPlayerColor(Color.blue);
+            getPlayers().get(1).setPlayerColor(Color.blue);
         }
         if (2 < returnMaxPlayers()) {
-            players.get(2).setPlayerColor(Color.red);
+            getPlayers().get(2).setPlayerColor(Color.red);
         }
 
     }
@@ -93,7 +93,7 @@ public class BoardScreen extends JPanel {
         });
 
         players = new ArrayList<Player>();
-        players.add(new Player(currPlayer));
+        players.add(new Player(getCurrPlayer()));
         
         
         
@@ -102,7 +102,7 @@ public class BoardScreen extends JPanel {
 
         x = y = 8;
 
-        bd = new BoardDrawing(x, y, this);
+        bd = new BoardDrawing(getX(), getY(), this);
         bd.setVisible(true);
        
 
@@ -115,7 +115,7 @@ public class BoardScreen extends JPanel {
         add(bd);
 
         stats = new JPanel();
-        stats.setLayout(new BoxLayout(stats, BoxLayout.X_AXIS));
+        stats.setLayout(new BoxLayout(getStats(), BoxLayout.X_AXIS));
         add(stats);
 
         stats.add(go);
@@ -171,6 +171,237 @@ public class BoardScreen extends JPanel {
         stats.add(extraInfo);
         stats.add(success);
 
+    }
+
+    /**
+     * @return the player
+     */
+    public int getPlayer() {
+        return player;
+    }
+
+    /**
+     * @param player the player to set
+     */
+    public void setPlayer(int player) {
+        this.player = player;
+    }
+
+    /**
+     * @return the bd
+     */
+    public BoardDrawing getBd() {
+        return bd;
+    }
+
+    /**
+     * @param bd the bd to set
+     */
+    public void setBd(BoardDrawing bd) {
+        this.bd = bd;
+    }
+
+    /**
+     * @return the stats
+     */
+    public JPanel getStats() {
+        return stats;
+    }
+
+    /**
+     * @param stats the stats to set
+     */
+    public void setStats(JPanel stats) {
+        this.stats = stats;
+    }
+
+    /**
+     * @return the dieResults
+     */
+    public JLabel getDieResults() {
+        return dieResults;
+    }
+
+    /**
+     * @param dieResults the dieResults to set
+     */
+    public void setDieResults(JLabel dieResults) {
+        this.dieResults = dieResults;
+    }
+
+    /**
+     * @return the whichPlayer
+     */
+    public JLabel getWhichPlayer() {
+        return whichPlayer;
+    }
+
+    /**
+     * @param whichPlayer the whichPlayer to set
+     */
+    public void setWhichPlayer(JLabel whichPlayer) {
+        this.whichPlayer = whichPlayer;
+    }
+
+    /**
+     * @return the extraInfo
+     */
+    public JLabel getExtraInfo() {
+        return extraInfo;
+    }
+
+    /**
+     * @param extraInfo the extraInfo to set
+     */
+    public void setExtraInfo(JLabel extraInfo) {
+        this.extraInfo = extraInfo;
+    }
+
+    /**
+     * @return the maxPlayers
+     */
+    public int getMaxPlayers() {
+        return maxPlayers;
+    }
+
+    /**
+     * @return the currPlayer
+     */
+    public int getCurrPlayer() {
+        return currPlayer;
+    }
+
+    /**
+     * @param currPlayer the currPlayer to set
+     */
+    public void setCurrPlayer(int currPlayer) {
+        this.currPlayer = currPlayer;
+    }
+
+    /**
+     * @return the portals
+     */
+    public ArrayList<Portal> getPortals() {
+        return portals;
+    }
+
+    /**
+     * @param portals the portals to set
+     */
+    public void setPortals(ArrayList<Portal> portals) {
+        this.portals = portals;
+    }
+
+    /**
+     * @return the players
+     */
+    public ArrayList<Player> getPlayers() {
+        return players;
+    }
+
+    /**
+     * @param players the players to set
+     */
+    public void setPlayers(ArrayList<Player> players) {
+        this.players = players;
+    }
+
+    /**
+     * @return the x
+     */
+    public int getX() {
+        return x;
+    }
+
+    /**
+     * @param x the x to set
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    /**
+     * @return the y
+     */
+    public int getY() {
+        return y;
+    }
+
+    /**
+     * @param y the y to set
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    /**
+     * @return the success
+     */
+    public JLabel getSuccess() {
+        return success;
+    }
+
+    /**
+     * @param success the success to set
+     */
+    public void setSuccess(JLabel success) {
+        this.success = success;
+    }
+
+    /**
+     * @return the roll
+     */
+    public JButton getRoll() {
+        return roll;
+    }
+
+    /**
+     * @param roll the roll to set
+     */
+    public void setRoll(JButton roll) {
+        this.roll = roll;
+    }
+
+    /**
+     * @return the mw
+     */
+    public MainWindow getMw() {
+        return mw;
+    }
+
+    /**
+     * @param mw the mw to set
+     */
+    public void setMw(MainWindow mw) {
+        this.mw = mw;
+    }
+
+    /**
+     * @return the go
+     */
+    public JButton getGo() {
+        return go;
+    }
+
+    /**
+     * @param go the go to set
+     */
+    public void setGo(JButton go) {
+        this.go = go;
+    }
+
+    /**
+     * @return the quit
+     */
+    public JButton getQuit() {
+        return quit;
+    }
+
+    /**
+     * @param quit the quit to set
+     */
+    public void setQuit(JButton quit) {
+        this.quit = quit;
     }
 
 }

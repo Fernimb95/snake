@@ -14,7 +14,7 @@ public class Player {
     }
 
     public int getPosition() {
-        return playerPosn;
+        return getPlayerPosn();
     }
 
     public String getName() {
@@ -22,11 +22,11 @@ public class Player {
     }
 
     public void setPosition(int posn) {
-        playerPosn = posn;
+        setPlayerPosn(posn);
     }
 
     public void incPosition(int posn) {
-        playerPosn += posn;
+        setPlayerPosn(getPlayerPosn() + posn);
     }
 
     public void setPlayerColor(Color c) {
@@ -38,11 +38,39 @@ public class Player {
     }
 
     public void incPlayerScore(int a) {
-        playerScore += a;
+        setPlayerScore(getPlayerScore() + a);
     }
 
     public int getPlayerScore() {
         return playerScore;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the playerPosn
+     */
+    public int getPlayerPosn() {
+        return playerPosn;
+    }
+
+    /**
+     * @param playerPosn the playerPosn to set
+     */
+    public void setPlayerPosn(int playerPosn) {
+        this.playerPosn = playerPosn;
+    }
+
+    /**
+     * @param playerScore the playerScore to set
+     */
+    public void setPlayerScore(int playerScore) {
+        this.playerScore = playerScore;
     }
 
 }

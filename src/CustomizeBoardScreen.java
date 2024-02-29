@@ -10,16 +10,16 @@ import javax.swing.JPanel;
 //needs massive improvements
 public class CustomizeBoardScreen extends JPanel {
 
-    JButton go;
-    JButton quit;
-    MainWindow mw;
+    private JButton go;
+    private JButton quit;
+    private MainWindow mw;
 
     public void quitButtonActionListener() {
-        mw.showCard("Two");
+        getMw().showCard("Two");
     }
 
     public void goButtonActionListener() {
-        mw.showCard("Four");
+        getMw().showCard("Four");
     }
 
     public CustomizeBoardScreen(MainWindow mw) {
@@ -50,5 +50,47 @@ public class CustomizeBoardScreen extends JPanel {
         add(go);
         add(quit);
 
+    }
+
+    /**
+     * @return the go
+     */
+    public JButton getGo() {
+        return go;
+    }
+
+    /**
+     * @param go the go to set
+     */
+    public void setGo(JButton go) {
+        this.go = go;
+    }
+
+    /**
+     * @return the quit
+     */
+    public JButton getQuit() {
+        return quit;
+    }
+
+    /**
+     * @param quit the quit to set
+     */
+    public void setQuit(JButton quit) {
+        this.quit = quit;
+    }
+
+    /**
+     * @return the mw
+     */
+    public MainWindow getMw() {
+        return mw;
+    }
+
+    /**
+     * @param mw the mw to set
+     */
+    public void setMw(MainWindow mw) {
+        this.mw = mw;
     }
 }
